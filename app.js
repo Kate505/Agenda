@@ -2,18 +2,25 @@ import colors from 'colors';
 
 //import {mostrarMenu, pausa} from './helpers/mensajes.js';
 import {inquirerMenu, pausa} from './helpers/inquirer.js';
-
-
-console.clear();
+import { Tareas } from './models/tareas.js';
 
 const main = async() => {
 
     let opt = '';
 
+    const tareas = new Tareas(); //Instancia de la clase tareas
+
     do {
         
         opt = await inquirerMenu();
         console.log({opt});
+        
+
+        // const tarea = new Tarea('Comprar el almuerzo');
+        // const tareas = new Tareas();
+
+        // tareas._listado[tarea.id] = tarea;
+        // console.log(tareas);
 
         await pausa();
 
