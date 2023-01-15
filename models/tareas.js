@@ -1,14 +1,17 @@
-/*
-    _listado: 
-        {'uuid-254-654654-6546: {desc:asd, completadoEn:9846} },
-
-*/
+import { Tarea } from './tarea.js';
 
 export class Tareas {
-    _listado = {};
+    _listado = {};  //esto se maneja como un objeto en vez de como un arreglo
 
     constructor(){
         this._listado = {};
     }
 
+    crearTarea(desc = ''){
+
+        const tarea = new Tarea(desc);
+        
+        this._listado[tarea.id] = tarea;        
+
+    }
 }

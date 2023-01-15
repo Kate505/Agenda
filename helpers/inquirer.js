@@ -12,30 +12,30 @@ const preguntas = [
                 name: '1. Crear tarea'
             },
             {
-                value:'2',
+                value: '2',
                 name: '2. Listar tareas'
             },
             {
-                value:'3',
+                value: '3',
                 name: '3. Listar tareas completadas'
             },
             {
-                value:'4',
+                value: '4',
                 name: '4. Listar tareas pendientes'
             },
             {
-                value:'5',
+                value: '5',
                 name: '5. Completar tarea(s)'
             },
             {
-                value:'6',
+                value: '6',
                 name: '6. Borrar tarea'
             },
             {
-                value:'0',
+                value: '0',
                 name: '0. Salir'
             }
-            
+
         ]
     }
 ]
@@ -48,20 +48,39 @@ const entrada = [
     }
 ]
 
-export const inquirerMenu = async() => {
-    
+export const inquirerMenu = async () => {
+
     console.clear();
     console.log('==================================='.cyan)
     console.log('       Seleccione una Opción'.cyan)
     console.log('===================================\n'.cyan)
 
-    const {opcion} = await inquirer.prompt(preguntas);
+    const { opcion } = await inquirer.prompt(preguntas);
 
     return opcion;
 }
 
-export const pausa = async() => {
+export const pausa = async () => {
     console.log('\n');
     await inquirer.prompt(entrada);
-    
+
+}
+
+export const leerInput = async (message) => {
+    const question = [
+        {
+            type: 'input',
+            name: 'desc',
+            message,
+            validate(value){
+                if(value.length === 0){
+                    return 'Por favor ingrese un valor';
+                }
+                return true;
+            }
+        }
+    ];
+
+    const {desc} = await inquirer.prompt(question);
+    return desc;
 }
