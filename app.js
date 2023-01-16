@@ -1,4 +1,5 @@
 import colors from 'colors';
+import { guardarDB, leerDB } from './helpers/guardarArchivo.js';
 
 //import {mostrarMenu, pausa} from './helpers/mensajes.js';
 import {inquirerMenu, pausa, leerInput} from './helpers/inquirer.js';
@@ -10,8 +11,16 @@ const main = async() => {
 
     const tareas = new Tareas(); //Instancia de la clase tareas
 
-    do {
+    const tareasDB = leerDB();
+
+    if (tareasDB) { //cargar tareas
+        //Establecer las tareas
+        tareas.cargarTareasFromArray(tareasDB);
         
+    }
+
+    do {
+        //imprimir el menú
         opt = await inquirerMenu();
         //console.log({opt});
 
@@ -24,10 +33,12 @@ const main = async() => {
                 break;
         
             case '2':
-                console.log(tareas._listado);
+                console.log(tareas.listadoArr);
                 break;
         }
         
+        guardarDB(tareas.listadoArr); //comentar para probar solo
+
 
         // const tarea = new Tarea('Comprar el almuerzo');
         // const tareas = new Tareas();
