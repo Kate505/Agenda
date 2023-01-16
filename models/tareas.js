@@ -33,4 +33,48 @@ export class Tareas { //crear una clase
         this._listado[tarea.id] = tarea;        
 
     }
+
+    listadoCompleto(){
+
+        console.log();
+
+        this.listadoArr.forEach((tarea, i) => {
+            
+            const {desc, completadoEn} = tarea;        //desestructuración 
+            const indice = `${i+1}`.green;
+            const estado = (completadoEn) ? 'Completada'.green : 'Pendiente'.red;
+
+            console.log(`${indice}. ${desc}  ::  ${estado}`);
+        });
+    }
+
+    listarPendientesCompletadas(completadas = true){
+        
+        console.log();
+        let i = 1;
+
+        this.listadoArr.forEach((tarea) => {
+            
+            const {desc, completadoEn} = tarea;        //desestructuración 
+            const indice = `${i+1}`.green;
+            const estado = (completadoEn) ? 'Completada'.green : 'Pendiente'.red;
+
+            if (completadas) {
+                if(completadoEn){
+                    console.log(`${(i + '.').green} ${desc}  ::  ${completadoEn}`);
+                    i++;
+                }
+                
+            }else{
+                if(!completadoEn){
+                    console.log(`${(i + '.').green} ${desc}  ::  ${estado}`);
+                    i++;
+                }
+            }
+
+
+            
+            
+        });
+    }
 }

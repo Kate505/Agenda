@@ -2,10 +2,10 @@ import colors from 'colors';
 import { guardarDB, leerDB } from './helpers/guardarArchivo.js';
 
 //import {mostrarMenu, pausa} from './helpers/mensajes.js';
-import {inquirerMenu, pausa, leerInput} from './helpers/inquirer.js';
+import { inquirerMenu, pausa, leerInput } from './helpers/inquirer.js';
 import { Tareas } from './models/tareas.js';
 
-const main = async() => {
+const main = async () => {
 
     let opt = '';
 
@@ -16,7 +16,7 @@ const main = async() => {
     if (tareasDB) { //cargar tareas
         //Establecer las tareas
         tareas.cargarTareasFromArray(tareasDB);
-        
+
     }
 
     do {
@@ -25,18 +25,27 @@ const main = async() => {
         //console.log({opt});
 
         switch (opt) {
-            case '1':
+            case '1': //Crear tarea
                 const desc = await leerInput('Descripción: ');
                 tareas.crearTarea(desc);
                 //console.log(desc);
-                
+
                 break;
-        
-            case '2':
-                console.log(tareas.listadoArr);
+
+            case '2': //Lisar todas las tareas
+                tareas.listadoCompleto();
+                //console.log(tareas.listadoArr);
+                break;
+
+            case '3': //Listar Completadas
+                tareas.listarPendientesCompletadas(true);
+                break;
+
+            case '4': //Listar Pendientes
+                tareas.listarPendientesCompletadas(false);
                 break;
         }
-        
+
         guardarDB(tareas.listadoArr); //comentar para probar solo
 
 

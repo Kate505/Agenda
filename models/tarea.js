@@ -11,4 +11,5 @@ export class Tarea {
         this.desc = desc;
         this.completadoEn = null;
     }
+
 }
