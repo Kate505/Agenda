@@ -3,6 +3,12 @@ import { Tarea } from './tarea.js';
 export class Tareas { //crear una clase
     _listado = {};  //esto se maneja como un objeto en vez de como un arreglo // esto es una propiedad llamada listado
 
+    borrarTarea (id = ''){
+        if (this._listado[id]) {
+            delete this._listado[id];
+        }
+    }
+
     get listadoArr(){ //getter
         const listado = []; //arreglo a llenar
 
@@ -61,7 +67,7 @@ export class Tareas { //crear una clase
 
             if (completadas) {
                 if(completadoEn){
-                    console.log(`${(i + '.').green} ${desc}  ::  ${completadoEn}`);
+                    console.log(`${(i + '.').green} ${desc}  ::  ${completadoEn.green}`);
                     i++;
                 }
                 
@@ -76,5 +82,20 @@ export class Tareas { //crear una clase
             
             
         });
+    }
+
+    toggleCompletadas(ids = []){
+        ids.forEach(id => {
+            const tarea = this._listado[id];
+            if(!tarea.completadoEn){
+                tarea.completadoEn = new Date().toISOString();
+            }
+        });
+
+         this.listadoArr.forEach(tarea => {
+            if(!ids.includes(tarea.id)){
+                this._listado[tarea.id].completadoEn = null;
+            }
+         });
     }
 }
